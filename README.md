@@ -104,13 +104,14 @@ source .venv/bin/activate
 Install the current project dependencies:
 
 ```bash
-pip install geopandas requests pandas pyarrow xarray netcdf4 cdsapi "openeo>=0.30" matplotlib pyyaml
+pip install geopandas requests pandas pyarrow xarray netcdf4 cdsapi "openeo>=0.30" earthengine-api matplotlib pyyaml
 ```
 
 Additional provider accounts and configuration are required for some workflows:
 
 - A CDS account with the ERA5-Land dataset license accepted.
 - A Copernicus Data Space account for openEO authentication.
+- A Google account and registered Google Cloud project for Earth Engine.
 - Network access to the relevant provider endpoints.
 
 ## Recommended workflow
@@ -153,15 +154,25 @@ The ERA5-Land request is a feasibility-stage monthly pull. Verify the current
 CDS dataset name, variable names, request fields, units, and geographic bounds
 against the live catalogue before relying on the output.
 
-The CHIRPS workflow is intentionally blocked until the exact CHIRPS v3 file
-pattern and product choice (final or preliminary, timestep, domain, and format)
-have been verified from the provider:
+CHIRPS v3 daily rainfall is exported through Google Earth Engine using the
+`UCSB-CHC/CHIRPS/V3/DAILY_SAT` collection. Authenticate when prompted and set
+the registered Earth Engine project:
 
 ```bash
-python scripts/02b_chirps_pull.py
+python scripts/02b_chirps_pull.py --project YOUR_GCP_PROJECT
 ```
 
-Do not replace its placeholder with an unverified URL.
+The default period is `2017-09-01` through `2025-07-01` (end exclusive). Use
+`--start` and `--end` to change it. The script exports governorate-level daily
+means to Google Drive. Values are in mm/day. Verify the collection's latest
+image date before extending the analysis period.
+
+CHIRPS daily values are derived from the base pentad and monthly products, so
+they should not be treated as independent observations. `DAILY_SAT` is
+preferred over `DAILY_RNL` because RNL uses ERA5 to distribute rainfall and
+would share information with the ERA5-Land features. The CHC page describes
+CHIRPS v3 as CC BY 4.0, while the Earth Engine catalog describes it as public
+domain; record both statements and cite DOI `10.15780/G2JQ0P`.
 
 ### 4. Document and analyze
 
