@@ -1,0 +1,6 @@
+crops:
+  - {crop_id: cereals, label: "Wheat + barley (combined)", note: "Start combined; no crop-type map yet"}
+  - {crop_id: durum_wheat, label: "Durum wheat", status: "only if crop-specific labels exist"}
+  - {crop_id: bread_wheat, label: "Bread wheat", status: "only if crop-specific labels exist"}
+  - {crop_id: barley, label: "Barley", status: "only if crop-specific labels exist"}
+calendar_source: TODO   # FAO GIEWS crop calendar + expert review

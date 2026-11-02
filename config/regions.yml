@@ -1,0 +1,11 @@
+# Stable ids are the join keys. Never join on names.
+crs_storage: EPSG:4326
+crs_area_calc: EPSG:32632   # UTM 32N for area calculations (verify)
+season_window: {start_month: 11, end_month: 6}   # Nov -> Jun cereal season (confirm with crop calendar)
+pilot_bbox_approx: {west: 8.0, south: 35.4, east: 10.0, north: 37.3}  # recompute from polygons in script 01
+regions:
+  - {geo_id: TN-BJ, name_fr: Béja,     name_ar: باجة,     admin_level: 1}
+  - {geo_id: TN-JE, name_fr: Jendouba, name_ar: جندوبة,   admin_level: 1}
+  - {geo_id: TN-KF, name_fr: Le Kef,   name_ar: الكاف,    admin_level: 1}
+  - {geo_id: TN-SL, name_fr: Siliana,  name_ar: سليانة,   admin_level: 1}
+# ISO 3166-2 codes used as ids; check they match your boundary source.
